@@ -1,5 +1,8 @@
 import greenfoot.*;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  * Write a description of class Finish here.
  * 
@@ -13,18 +16,20 @@ public class Finish extends World
      * Constructor for objects of class Finish.
      * 
      */
+    
+    private static final int w = (int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()*0.80);
+    private static final int h = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()*0.80);
+    
     public Finish()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1500, 1000, 1); 
-        addObject(new Floor2(), 125, 1000);
-        addObject(new Floor2(), 375, 1000);
-        addObject(new Floor2(), 625, 1000);
-        addObject(new Floor2(), 875, 1000);
-        addObject(new Floor2(), 1125, 1000);
-        addObject(new Floor2(), 1375, 1000);
-        addObject(new Princess(), 145, 940);
-        addObject(new Mario(), 85, 940);
+        //super(1500, 1000, 1); 
+        super(w, h, 1);
+        for (int i = 125; i < w; i += 250) {
+            addObject(new Floor2(), i, h);
+        }
+        addObject(new Princess(), 145, h-60);
+        addObject(new Mario(), 85, h-60);
         showText("YOU WIN", 750, 600);
     }
 }
