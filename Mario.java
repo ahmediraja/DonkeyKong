@@ -4,18 +4,18 @@ public class Mario extends Actor
     int speed;
     String Marioimage = "mariopixelCopy.png";
     long lastTime;
-    int Lives = 3;
+    int lives = 7;
     public void act() 
     {
         speed = speed + 1;
         setLocation( getX(), getY() + speed);
-        getWorld().showText("Lives : "+ Lives +"",1450, 50);
+        getWorld().showText("lives : "+ lives +"",1450, 50);
         if(isTouching(Barrel.class))
         {
             removeTouching(Barrel.class);
-            Lives = Lives - 1;
+            lives--;
         }
-        if(Lives == 0)
+        if(lives == 0)
         {
             getWorld().showText("GAME OVER", 750, 600);
             Greenfoot.stop();
