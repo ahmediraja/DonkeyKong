@@ -7,13 +7,14 @@ public class Mario extends Actor
     String Marioimage = "mariopixelCopy.png";
     long lastTime;
     int live = 3;
-    private long start = System.currentTimeMillis();
-    int time = 0;
+    private long start = System.nanoTime();
+    private long time = start / 1000000000;
+    int times = 0;
     public void act() 
     {
         speed = speed + 1;
         setLocation( getX(), getY() + speed);
-        getWorld().showText("Lives : "+ live +"",750, 600);
+        //getWorld().showText("Time : "+ time +"",750, 600);
         if(isTouching(Barrel.class))
         {
             removeTouching(Barrel.class);
@@ -85,5 +86,5 @@ public class Mario extends Actor
         {
             speed = 50;
         }
-    } 
+    }
 }

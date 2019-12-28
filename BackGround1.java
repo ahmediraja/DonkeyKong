@@ -33,6 +33,6 @@ public class BackGround1 extends World
         addObject(new Mario(), 125, h-60);
         addObject(new lives(),(int)(w*0.5)+600, (int)(h*0.5)-320);
         addObject(new lives(),(int)(w*0.5)+500, (int)(h*0.5)-320);
-        addObject(new lives(),(int)(w*0.5)+425, (int)(h*0.5)-320);       
+        addObject(new lives(),(int)(w*0.5)+425, (int)(h*0.5)-320);
     }
 }
