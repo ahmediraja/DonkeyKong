@@ -1,21 +1,26 @@
+import java.awt.Toolkit;
 import greenfoot.*;
+import java.lang.*;
 public class Mario extends Actor
 {
     int speed;
     String Marioimage = "mariopixelCopy.png";
     long lastTime;
-    int Lives = 3;
+    int live = 3;
+    private long start = System.currentTimeMillis();
+    int time = 0;
     public void act() 
     {
         speed = speed + 1;
         setLocation( getX(), getY() + speed);
-        getWorld().showText("Lives : "+ Lives +"",1450, 50);
+        getWorld().showText("Lives : "+ live +"",750, 600);
         if(isTouching(Barrel.class))
         {
             removeTouching(Barrel.class);
-            Lives = Lives - 1;
+            getWorld().removeObject(getWorld().getObjects(lives.class).get(0));
+            live--;
         }
-        if(Lives == 0)
+        if(live == 0)
         {
             getWorld().showText("GAME OVER", 750, 600);
             Greenfoot.stop();
