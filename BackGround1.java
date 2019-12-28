@@ -6,10 +6,6 @@ import greenfoot.*;
  * @author (your name) 
  * @version (a version number or a date)
  */
-
-import java.awt.Dimension;
-import java.awt.Toolkit;
-
 public class BackGround1 extends World
 {
 
@@ -17,15 +13,11 @@ public class BackGround1 extends World
      * Constructor for objects of class BackGround1.
      * 
      */
-    
     public BackGround1()
     {    
-        //super(1500, 1000, 1);
-        
-        super((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth(),(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight(),1);
-        int w = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        int h = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-        addObject(new DK(), 200, 150);
+        super(1500, 1000, 1); 
+        addObject(new DK(), 220, 150);
+        addObject(new BarrelBG(), 70, 150);
         addObject(new Floor(), 125, 219);
         addObject(new Floor(), 375, 219);
         addObject(new Floor(), 625, 219);
@@ -44,6 +36,7 @@ public class BackGround1 extends World
         addObject(new Floor2(), 875, 1000);
         addObject(new Floor2(), 1125, 1000);
         addObject(new Floor2(), 1375, 1000);
-        addObject(new Mario(), 125, 940);
+        addObject(new Mario(), 150, 940);
+        addObject(new FireBarrel(), 80, 942);
     }
 }

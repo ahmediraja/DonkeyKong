@@ -1,19 +1,17 @@
 import greenfoot.*;
 
-/**
- * Write a description of class Barrel here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class Barrel extends Actor
 {
+    public Barrel(){
+        GreenfootImage myImage = getImage();
+        myImage.scale(50,50);
+    }
     public void act() 
     {
-        if(isAtEdge())
+        if(isTouching(FireBarrel.class))
         {
             getWorld().removeObject(this);
-        } else{
+        } else {
           setLocation(getX(), getY() + 3);
           while(isTouching(Floor2.class))
           {
