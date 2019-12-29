@@ -11,26 +11,20 @@ import java.awt.Toolkit;
  */
 public class Finish extends World
 {
-
+    private static final int w = (int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()*0.80);
+    private static final int h = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()*0.80);
+    
     /**
      * Constructor for objects of class Finish.
      * 
      */
-    
-    private static final int w = (int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()*0.80);
-    private static final int h = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()*0.80);
-    
     public Finish()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        //super(1500, 1000, 1); 
+        // Create a new world with w*h cells with a cell size of 1x1 pixels.
         super(w, h, 1);
-        //for (int i = 125; i < w; i += 250) {
-        //    addObject(new Floor(w, 120), i, h);
-        //}
         addObject(new Floor2(w, (int)(h*0.05)), (int)(w/2), h);
-        addObject(new Princess(), 145, h-60);
-        addObject(new Mario(), 85, h-60);
-        showText("YOU WIN", 750, 600);
+        addObject(new Princess(76, 70), 145, h-57);
+        addObject(new Mario(50, 75, true), 85, h-57);
+        showText("YOU WIN", (int)(w/2), (int)(h/2));
     }
 }

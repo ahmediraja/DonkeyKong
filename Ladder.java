@@ -1,22 +1,21 @@
-import greenfoot.*;
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Floor here.
+ * Write a description of class Ladder here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Floor extends Actor
+public class Ladder extends Actor
 {
-    public Floor(int w, int h)
+    public Ladder(int w, int h)
     {
         GreenfootImage image = getImage();
-        //image.scale((int)(image.getWidth() * 0.80), (int)(image.getHeight() * 0.80));
         image.scale(w, h);
         setImage(image);
     }
     /**
-     * Act - do whatever the Floor wants to do. This method is called whenever
+     * Act - do whatever the Ladder wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() 
