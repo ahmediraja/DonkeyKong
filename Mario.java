@@ -32,7 +32,7 @@ public class Mario extends Actor
     }
     public void animation(){
         if(Greenfoot.isKeyDown("left")){
-            move(-20);
+            move(-10);
             if(marioFrame == 1){
             setImage(marioRunningLeftHalf);
             marioFrame = 2;
@@ -43,7 +43,7 @@ public class Mario extends Actor
           }  
         }
          else if(Greenfoot.isKeyDown("right")){
-            move(20);
+            move(10);
             if(marioFrame == 1){
                 setImage(marioRunningRightHalf);
                 marioFrame = 2;

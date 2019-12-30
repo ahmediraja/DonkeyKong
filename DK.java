@@ -40,14 +40,18 @@ public class DK extends Actor
             frame = 6;
         } else if(frame == 6){
             setImage(kongThrowing);
+            throwBarrel();
             frame = 3;
         }
+    }
+    void throwBarrel() {
+        getWorld().addObject(new Barrel(35, 35), getX(), getY());
     }
     public void act() 
     {
         animationCounter = animationCounter + 1;
         
-        if(animationCounter % 50 == 0)
+        if(animationCounter % 120 == 0)
         {
             animation();
         }
@@ -56,10 +60,5 @@ public class DK extends Actor
             Greenfoot.setWorld(new Finish());
             Greenfoot.stop();
         }
-        if(System.currentTimeMillis() - lastTime > 2500)
-        {
-            lastTime = System.currentTimeMillis();
-            getWorld().addObject(new Barrel(35, 35), getX(), getY());
-        }
-    }    
+    }
 }
