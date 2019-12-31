@@ -4,6 +4,7 @@ public class DK extends Actor
     long lastTime;
     int animationCounter = 0;
     int frame = 1;
+    int width; //used for adjusting barrel init location
     GreenfootImage kongDead = new GreenfootImage("Kong Dead.png");
     GreenfootImage kongGrabing = new GreenfootImage("Kong Grabing.png");
     GreenfootImage kongRoar1 = new GreenfootImage("Kong Roar 1.png");
@@ -13,6 +14,7 @@ public class DK extends Actor
     GreenfootImage kongThrowing = new GreenfootImage("Kong Throwing.png");
     public DK(int w, int h){
         //w=140, h=110
+        width = w;
         kongRoar1 = getImage();
         kongRoar1.scale(w,h);
         kongRoar2.scale(w,h);
@@ -45,7 +47,7 @@ public class DK extends Actor
         }
     }
     void throwBarrel() {
-        getWorld().addObject(new Barrel(35, 35), getX(), getY());
+        getWorld().addObject(new Barrel(35, 35), getX()+(int)(width/2), getY());
     }
     public void act() 
     {

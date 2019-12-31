@@ -9,7 +9,8 @@ public class Mario extends Actor
     GreenfootImage marioRunningLeftHalf = new GreenfootImage("Mario Running Left Half.png");
     GreenfootImage marioRunningLeft = new GreenfootImage("Mario Running Left.png");
     long lastTime;
-    int lives = 6, animationCounter = 0, marioFrame = 1;
+    int lives = 5, animationCounter = 0, marioFrame = 1;
+    Heart[] hearts = new Heart[lives];
     public Mario(int w, int h){
         //w=50, h=75
         marioFacingRight = getImage();
@@ -29,6 +30,14 @@ public class Mario extends Actor
         marioRunningLeftHalf.scale(w+10,h);
         marioRunningRight.scale(w+10,h);
         marioRunningLeft.scale(w+10,h);
+    }
+    protected void addedToWorld(World world) {
+        if (getWorld() instanceof BackGround1) {
+            for (int i = 0; i < hearts.length; i++) {
+                hearts[i] = new Heart(30, 30);
+                getWorld().addObject(hearts[i], i*50+25, 25);
+            }
+        }
     }
     public void animation(){
         if(Greenfoot.isKeyDown("left")){
@@ -60,9 +69,8 @@ public class Mario extends Actor
     {
         speed = speed + 1;
         setLocation( getX(), getY() + speed);
-        getWorld().showText("Lives : "+ lives +"", 50, 15);
+        //getWorld().showText("Lives : "+ lives +"", 50, 15);
         animationCounter = animationCounter + 1;
-         
         if(animationCounter % 10 == 0)
         {
             animation();
@@ -70,6 +78,7 @@ public class Mario extends Actor
         if(isTouching(Barrel.class))
         {
             removeTouching(Barrel.class);
+            getWorld().removeObject(hearts[lives-1]);
             lives--;
         }
         if(lives == 0)
