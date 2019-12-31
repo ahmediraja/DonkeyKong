@@ -1,30 +1,101 @@
-import java.awt.Toolkit;
 import greenfoot.*;
-import java.lang.*;
 public class Mario extends Actor
 {
     int speed;
-    String Marioimage = "mariopixelCopy.png";
+    GreenfootImage marioFacingRight = new GreenfootImage("Mario Facing Right.png");
+    GreenfootImage marioFacingLeft = new GreenfootImage("Mario Facing Left.png");
+    GreenfootImage marioRunningRightHalf = new GreenfootImage("Mario Running Right Half.png");
+    GreenfootImage marioRunningRight = new GreenfootImage("Mario Running Right.png");
+    GreenfootImage marioRunningLeftHalf = new GreenfootImage("Mario Running Left Half.png");
+    GreenfootImage marioRunningLeft = new GreenfootImage("Mario Running Left.png");
     long lastTime;
-    int live = 3;
-    private long start = System.nanoTime();
-    private long time = start / 1000000000;
-    int times = 0;
+    int lives = 100, animationCounter = 0, marioFrame = 1;
+    GreenfootSound running = new GreenfootSound("walking.wav");
+    GreenfootSound dead = new GreenfootSound("death.wav");
+    GreenfootSound jump = new GreenfootSound("jump.wav");
+    GreenfootSound win = new GreenfootSound("win.wav");
+    boolean hasKey = false;
+    public Mario(int w, int h){
+        //w=50, h=75
+        marioFacingRight = getImage();
+        marioFacingRight.scale(w,h);
+        marioFacingLeft.scale(w,h);
+        marioRunningRightHalf.scale(w+10,h);
+        marioRunningLeftHalf.scale(w+10,h);
+        marioRunningRight.scale(w+10,h);
+        marioRunningLeft.scale(w+10,h);
+    }
+    public Mario(int w, int h, boolean runLeft){ //the bool is just used as identifier
+        //w=50, h=75
+        marioRunningLeft = getImage();
+        marioFacingRight.scale(w,h);
+        marioFacingLeft.scale(w,h);
+        marioRunningRightHalf.scale(w+10,h);
+        marioRunningLeftHalf.scale(w+10,h);
+        marioRunningRight.scale(w+10,h);
+        marioRunningLeft.scale(w+10,h);
+    }
+    public void animation(){
+        if(Greenfoot.isKeyDown("left")){
+            running.play();
+            move(-20);
+            if(marioFrame == 1){
+            setImage(marioRunningLeftHalf);
+            marioFrame = 2;
+          }
+          else if(marioFrame == 2){
+            setImage(marioRunningLeft);
+            marioFrame = 1;
+          }  
+        }
+         else if(Greenfoot.isKeyDown("right")){
+            running.play();
+            move(20);
+            if(marioFrame == 1){
+                setImage(marioRunningRightHalf);
+                marioFrame = 2;
+            }
+            else if(marioFrame == 2){
+              setImage(marioRunningRight);
+              marioFrame = 1;
+            }
+        }  else {
+            setImage(marioFacingRight);
+        }
+    }
     public void act() 
     {
         speed = speed + 1;
         setLocation( getX(), getY() + speed);
-        //getWorld().showText("Time : "+ time +"",750, 600);
+        animationCounter = animationCounter + 1;
+         
+        if(animationCounter % 10 == 0)
+        {
+            animation();
+        }
         if(isTouching(Barrel.class))
         {
             removeTouching(Barrel.class);
-            getWorld().removeObject(getWorld().getObjects(lives.class).get(0));
-            live--;
+            //getWorld().removeObject(getWorld().getObjects(lives.class).get(0));
+            lives--;
         }
-        if(live == 0)
+        if(lives == 0)
         {
-            getWorld().showText("GAME OVER", 750, 600);
-            Greenfoot.stop();
+            dead.play();
+            if(running.isPlaying()){
+                running.stop();
+                dead.play();
+                getWorld().showText("GAME OVER", 750, 600);
+                Greenfoot.stop();
+            }
+            if(!running.isPlaying()){
+                running.stop();
+                dead.play();
+                getWorld().showText("GAME OVER", 750, 600);
+                Greenfoot.stop();
+                
+            }
+
         }
         if(speed > 0)
         {
@@ -34,7 +105,16 @@ public class Mario extends Actor
                 setLocation(getX(), getY() - 1);
                 if(Greenfoot.isKeyDown("up"))
                 {
-                    speed = - 27;
+                    if(running.isPlaying()){
+                        running.stop();
+                        jump.play();
+                        speed = - 22;
+                    }
+                    if(!running.isPlaying()){
+                        jump.play();
+                        speed = - 22;
+                    }
+                    
                 }
             }
         }
@@ -45,46 +125,23 @@ public class Mario extends Actor
                 speed = 0;
                 setLocation(getX(), getY() + 1);
             }
-        }    
-        if(Greenfoot.isKeyDown("left"))
-        {
-            move(-5);
-            /*if(System.currentTimeMillis() - lastTime > 500 && Marioimage.equals("mariopixelCopy.png"))
-            {
-                Marioimage = "marioleft.png";
-                setImage("marioleft.png");
-                lastTime = System.currentTimeMillis();
-            } else {
-                if(System.currentTimeMillis() - lastTime > 500)
-                {
-                    Marioimage = "mariopixelCopy.png";
-                    setImage("mariopixelCopy.png");
-                    lastTime = System.currentTimeMillis();
-                }
-            } */
-            
-           
-            setImage("mariopixelCopy.png");
-            while(isTouching(Floor.class))
-            {
-               move(1);
-            } 
-        } else {
-            if(Greenfoot.isKeyDown("right"))
-            {
-               move(5);
-               setImage("mariopixel.png");
-                while(isTouching(Floor.class))
-                {
-                  move(-1);
-               }
-            } else{
-                setImage("mario-big.png");
+        }
+        if(isTouching(Ladder.class)) {
+            if(Greenfoot.isKeyDown("up")) {
+                
+                speed -= 5;
+            } else if(Greenfoot.isKeyDown("down")) {
+                speed += 5;
             }
         }
-        if(Greenfoot.isKeyDown("down"))
-        {
-            speed = 50;
+        if(isTouching(key.class)) {
+            hasKey = true;
+            getWorld().removeObject(getWorld().getObjects(key.class).get(0));
+        }
+        if(isTouching(inCage.class) && hasKey == true) {
+            win.play();
+            Greenfoot.setWorld(new Finish());
+            Greenfoot.stop();
         }
     }
 }

@@ -10,7 +10,7 @@ public class startScreen extends World
 {
     private static final int w = (int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()*0.80);
     private static final int h = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()*0.80);
-    GreenfootSound music = new GreenfootSound("startscreenmusic.mp3");
+    GreenfootSound music = new GreenfootSound("startMusic.mp3");
     /**
      * Constructor for objects of class startScreen.
      * 
@@ -18,14 +18,26 @@ public class startScreen extends World
     public startScreen()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(w, h, 1);
-        music.play();
+        super(w, h, 1); 
+        //music.play();
     }
     public void act()
     {
         if(Greenfoot.isKeyDown("space"))
         {
+            music.stop();
             Greenfoot.setWorld(new BackGround1());
+        }
+        if(Greenfoot.isKeyDown("m"))
+        {
+            if(music.isPlaying())
+            {
+                music.pause();
+            }
+            else
+            {
+                music.play();
+            }
         }
     }
 }

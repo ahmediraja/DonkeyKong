@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Floor
 comment0.text=\n\ Write\ a\ description\ of\ class\ Floor\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
-comment1.params=wFloor\ hFloor
+comment1.params=w\ h
 comment1.target=Floor(int,\ int)
 comment2.params=
 comment2.target=void\ act()
