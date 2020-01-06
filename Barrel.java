@@ -14,7 +14,7 @@ public class Barrel extends Actor
             getWorld().removeObject(this);
         } else {
           setLocation(getX(), getY() + 3);
-          while(isTouching(Floor2.class) || isTouching(Floor3.class))
+          while(isTouching(Floor2.class))
           {
             setLocation(getX() - hVel, getY() - 3);
             turn(-hVel*2);

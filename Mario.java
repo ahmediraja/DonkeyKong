@@ -143,5 +143,14 @@ public class Mario extends Actor
             Greenfoot.setWorld(new Finish());
             Greenfoot.stop();
         }
+        String key = Greenfoot.getKey();
+        if (key != null && key.equals("p"))
+        {
+          Greenfoot.setWorld(new Paused());
+          if (key != null && key.equals("p"))
+          {
+             Greenfoot.setWorld(new BackGround1()); 
+          }
+        }
     }
 }
