@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Barrel
-comment1.params=w\ h
-comment1.target=Barrel(int,\ int)
+comment1.params=
+comment1.target=Barrel()
 comment2.params=
 comment2.target=void\ act()
 numComments=3

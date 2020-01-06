@@ -8,9 +8,6 @@ import greenfoot.*;
  */
 public class Floor2 extends Floor
 {
-    public Floor2(int w, int h) {
-        super(w, h);
-    }
     /**
      * Act - do whatever the Floor2 wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.

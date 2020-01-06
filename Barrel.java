@@ -2,10 +2,9 @@ import greenfoot.*;
 
 public class Barrel extends Actor
 {
-    static int hVel = 1; //horizontal velocity
-    public Barrel(int w, int h){
+    public Barrel(){
         GreenfootImage myImage = getImage();
-        myImage.scale(w,h);
+        myImage.scale(50,50);
     }
     public void act() 
     {
@@ -16,13 +15,13 @@ public class Barrel extends Actor
           setLocation(getX(), getY() + 3);
           while(isTouching(Floor2.class))
           {
-            setLocation(getX() - hVel, getY() - 3);
-            turn(-hVel*2);
+            setLocation(getX() - 3, getY() - 3);
+            turn(-8);
           }
           while(isTouching(Floor.class))
           {
-            setLocation(getX() + hVel, getY() - 3);
-            turn(hVel*2);
+            setLocation(getX() + 3, getY() - 3);
+            turn(8);
           }
        }
     }
