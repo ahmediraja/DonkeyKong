@@ -25,6 +25,8 @@ public class BackGround1 extends World
         super(w,h,1);
         final int floorHeight = (int)(h*0.05);
         final int floorGap = (int)h/4;
+        final int marioHeight = 54;
+        
         
         addObject(new DK(140, 110), 190, 112);
         addObject(new BarrelBG(100, 80), 70, 122);
@@ -51,9 +53,9 @@ public class BackGround1 extends World
         addObject(new Floor2((int)(w*0.75), floorHeight), w-(int)((w*0.75)*0.5), h-(floorGap*2));
         addObject(new Floor((int)(w*0.75), floorHeight), (int)((w*0.75)*0.5), h-floorGap);
         addObject(new Floor2(w, floorHeight), (int)(w/2), h);
-        
-        addObject(new Ladder((int)(w*0.04), (int)(h*0.2)), (int)(w*0.33), (int)(h*0.375));
-        addObject(new Ladder((int)(w*0.04), (int)(h*0.2)), (int)(w*0.66), h-(int)(h*0.375));
+        //(int)(h*0.375-(floorHeight/2)-marioHeight+1)
+        addObject(new Ladder((int)(w*0.04), (int)(floorGap-marioHeight+5)), (int)(w*0.33), (int)(h-(floorGap*3)+((floorGap-marioHeight-floorHeight)/2)));
+        addObject(new Ladder((int)(w*0.04), (int)(floorGap-marioHeight+5)), (int)(w*0.66), (int)(h-(floorGap*2)+((floorGap-marioHeight-floorHeight)/2)));
         
         addObject(new Mario(36, 54), 125, h-46);
         

@@ -9,7 +9,7 @@ public class Mario extends Actor
     GreenfootImage marioRunningLeftHalf = new GreenfootImage("Mario Running Left Half.png");
     GreenfootImage marioRunningLeft = new GreenfootImage("Mario Running Left.png");
     long lastTime;
-    int lives = 5, animationCounter = 0, marioFrame = 1;
+    int lives = 10, animationCounter = 0, marioFrame = 1;
     Heart[] hearts = new Heart[lives];
     public Mario(int w, int h){
         //w=50, h=75
@@ -21,17 +21,7 @@ public class Mario extends Actor
         marioRunningRight.scale(w+10,h);
         marioRunningLeft.scale(w+10,h);
     }
-    public Mario(int w, int h, boolean runLeft){ //the bool is just used as identifier
-        //w=50, h=75
-        marioRunningLeft = getImage();
-        marioFacingRight.scale(w,h);
-        marioFacingLeft.scale(w,h);
-        marioRunningRightHalf.scale(w+10,h);
-        marioRunningLeftHalf.scale(w+10,h);
-        marioRunningRight.scale(w+10,h);
-        marioRunningLeft.scale(w+10,h);
-    }
-    protected void addedToWorld(World world) {
+    public void addedToWorld(World world) {
         if (getWorld() instanceof BackGround1) {
             for (int i = 0; i < hearts.length; i++) {
                 hearts[i] = new Heart(30, 30);
@@ -39,10 +29,9 @@ public class Mario extends Actor
             }
         }
     }
-    public void animation(){
-        if(Greenfoot.isKeyDown("left")){
-            move(-10);
-            if(marioFrame == 1){
+    public void animation() {
+        if(Greenfoot.isKeyDown("left")) {
+          if(marioFrame == 1){
             setImage(marioRunningLeftHalf);
             marioFrame = 2;
           }
@@ -50,9 +39,7 @@ public class Mario extends Actor
             setImage(marioRunningLeft);
             marioFrame = 1;
           }  
-        }
-         else if(Greenfoot.isKeyDown("right")){
-            move(10);
+        } else if(Greenfoot.isKeyDown("right")){
             if(marioFrame == 1){
                 setImage(marioRunningRightHalf);
                 marioFrame = 2;
@@ -61,13 +48,12 @@ public class Mario extends Actor
               setImage(marioRunningRight);
               marioFrame = 1;
             }
-        }  else {
+        } else {
             setImage(marioFacingRight);
         }
     }
-    public void act() 
-    {
-        speed = speed + 1;
+    public void act() {
+        speed += 1;
         setLocation( getX(), getY() + speed);
         //getWorld().showText("Lives : "+ lives +"", 50, 15);
         animationCounter = animationCounter + 1;
@@ -88,30 +74,57 @@ public class Mario extends Actor
         }
         if(speed > 0)
         {
-            while(isTouching(Floor.class))
-            {
+            if(isTouching(Ladder.class)) {
                 speed = 0;
                 setLocation(getX(), getY() - 1);
-                if(Greenfoot.isKeyDown("up"))
+                //if(Greenfoot.isKeyDown("up")) {
+                //    speed = -5;
+                //}
+            } else {
+                while(isTouching(Floor.class))
                 {
-                    speed = - 22;
+                    speed = 0;
+                    setLocation(getX(), getY() - 1);
+                    if(Greenfoot.isKeyDown("up") && !isTouching(Ladder.class))
+                    {
+                        speed = - 22;
+                    }
                 }
             }
         }
         if(speed <= 0)
         {
-            while(isTouching(Floor.class))
-            {
+            if(isTouching(Ladder.class)) {
                 speed = 0;
-                setLocation(getX(), getY() + 1);
+                //setLocation(getX(), getY() - 1);
+                if(Greenfoot.isKeyDown("up")) {
+                    speed = -2;
+                }
+            } else {
+                while(isTouching(Floor.class))
+                {
+                    speed = 0;
+                    setLocation(getX(), getY() + 1);
+                }
             }
+        }
+        if(Greenfoot.isKeyDown("right")) {
+            move(1);
+        } else if(Greenfoot.isKeyDown("left")) {
+            move(-1);
         }
         if(isTouching(Ladder.class)) {
+            setLocation(getX(), getY() + 1);
             if(Greenfoot.isKeyDown("up")) {
-                speed -= 5;
+                speed -= 1;
             } else if(Greenfoot.isKeyDown("down")) {
-                speed += 5;
+                speed += 1;
             }
         }
+        // MAY USE THIS FOR POWERUPS DOWN THE LINE
+        //if(Greenfoot.isKeyDown("l")) {
+        //    lives++;
+        //    addedToWorld(getWorld());
+        //}
     }
 }

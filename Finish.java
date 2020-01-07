@@ -24,7 +24,7 @@ public class Finish extends World
         super(w, h, 1);
         addObject(new Floor2(w, (int)(h*0.05)), (int)(w/2), h);
         addObject(new Princess(76, 70), 145, h-57);
-        addObject(new Mario(50, 75, true), 85, h-57);
+        addObject(new Mario(50, 75), 85, h-57);
         showText("YOU WIN", (int)(w/2), (int)(h/2));
     }
 }
