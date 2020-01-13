@@ -2,16 +2,18 @@ import greenfoot.*;
 public class Mario extends Actor
 {
     int speed;
-    GreenfootImage marioFacingRight = new GreenfootImage("Mario Facing Right.png");
-    GreenfootImage marioFacingLeft = new GreenfootImage("Mario Facing Left.png");
-    GreenfootImage marioRunningRightHalf = new GreenfootImage("Mario Running Right Half.png");
-    GreenfootImage marioRunningRight = new GreenfootImage("Mario Running Right.png");
-    GreenfootImage marioRunningLeftHalf = new GreenfootImage("Mario Running Left Half.png");
-    GreenfootImage marioRunningLeft = new GreenfootImage("Mario Running Left.png");
+    GreenfootImage marioFacingRight = new GreenfootImage("Mario Facing Right.png"),
+    marioFacingLeft = new GreenfootImage("Mario Facing Left.png"),
+    marioRunningRightHalf = new GreenfootImage("Mario Running Right Half.png"),
+    marioRunningRight = new GreenfootImage("Mario Running Right.png"),
+    marioRunningLeftHalf = new GreenfootImage("Mario Running Left Half.png"),
+    marioRunningLeft = new GreenfootImage("Mario Running Left.png");
     long lastTime;
-    int lives = 10, animationCounter = 0, marioFrame = 1;
+    int lives = 5, animationCounter = 0, marioFrame = 1;
     Heart[] hearts = new Heart[lives];
-    public Mario(int w, int h){
+    GreenfootSound win = new GreenfootSound("win.wav");
+    boolean hasKey = false;
+    public Mario(int w, int h) {
         //w=50, h=75
         marioFacingRight = getImage();
         marioFacingRight.scale(w,h);
@@ -22,8 +24,8 @@ public class Mario extends Actor
         marioRunningLeft.scale(w+10,h);
     }
     public void addedToWorld(World world) {
-        if (getWorld() instanceof BackGround1) {
-            for (int i = 0; i < hearts.length; i++) {
+        if (getWorld() instanceof BackGround1 || getWorld() instanceof BackGround2) {
+            for (int i = 0; i < lives; i++) {
                 hearts[i] = new Heart(30, 30);
                 getWorld().addObject(hearts[i], i*50+25, 25);
             }
@@ -55,7 +57,7 @@ public class Mario extends Actor
     public void act() {
         speed += 1;
         setLocation( getX(), getY() + speed);
-        //getWorld().showText("Lives : "+ lives +"", 50, 15);
+        //getWorld().showText("Lives: "+ lives +"", 50, 15);
         animationCounter = animationCounter + 1;
         if(animationCounter % 10 == 0)
         {
@@ -120,6 +122,17 @@ public class Mario extends Actor
             } else if(Greenfoot.isKeyDown("down")) {
                 speed += 1;
             }
+        } else {
+            
+        }
+        if(isTouching(Key.class)) {
+            hasKey = true;
+            getWorld().removeObject(getWorld().getObjects(Key.class).get(0));
+        }
+        if(isTouching(InCage.class) && hasKey == true) {
+            win.play();
+            Greenfoot.setWorld(new Finish());
+            Greenfoot.stop();
         }
         // MAY USE THIS FOR POWERUPS DOWN THE LINE
         //if(Greenfoot.isKeyDown("l")) {

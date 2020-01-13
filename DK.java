@@ -57,9 +57,9 @@ public class DK extends Actor
         {
             animation();
         }
-        if(isTouching(Mario.class))
+        if(isTouching(Mario.class) && getWorld() instanceof BackGround1)
         {
-            Greenfoot.setWorld(new Finish());
+            Greenfoot.setWorld(new BackGround2());
             Greenfoot.stop();
         }
     }

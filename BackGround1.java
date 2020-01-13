@@ -30,6 +30,7 @@ public class BackGround1 extends World
         
         addObject(new DK(140, 110), 190, 112);
         addObject(new BarrelBG(100, 80), 70, 122);
+        addObject(new FireBarrel(36, 54), 60, h-46);
         //addObject(new DK(), 220, 150);
         //addObject(new Floor(), 125, 219);
         //addObject(new Floor(), 375, 219);
@@ -58,7 +59,5 @@ public class BackGround1 extends World
         addObject(new Ladder((int)(w*0.04), (int)(floorGap-marioHeight+5)), (int)(w*0.66), (int)(h-(floorGap*2)+((floorGap-marioHeight-floorHeight)/2)));
         
         addObject(new Mario(36, 54), 125, h-46);
-        
-        addObject(new FireBarrel(36, 54), 60, h-46);
     }
 }
