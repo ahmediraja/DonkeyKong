@@ -35,7 +35,7 @@ public class BackGround2 extends World
         addObject(new Floor((int)(w*0.2), floorHeight), w-(int)((w*0.58)*0.17), h-(floorGap*2));
         addObject(new Floor((int)(w*0.2), floorHeight), w-(int)((w*0.70)*0.2), h-(int)(floorGap*0.9));
         addObject(new Floor((int)(w*0.2), floorHeight), w-(int)((w*0.70)*0.7), h-(int)(floorGap*1.5));
-        
+        addObject(new inCage(76, 70), 145, h-415);
         addObject(new Mario(36, 54), 125, h-46);
         addObject(new FireBarrel(36, 54), 60, h-46);
         
@@ -44,6 +44,6 @@ public class BackGround2 extends World
         addObject(new lives(),(int)(w*0.5)+425, (int)(h*0.5)-320);
         
         addObject(new key(),(int)(w*0.5)+25, (int)(h*0.5)-230);
-        addObject(new inCage(76, 70), 145, h-415);
+        
     }
 }
