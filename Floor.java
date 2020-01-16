@@ -8,6 +8,13 @@ import greenfoot.*;
  */
 public class Floor extends Actor
 {
+    public Floor(int w, int h)
+    {
+        GreenfootImage image = getImage();
+        //image.scale((int)(image.getWidth() * 0.80), (int)(image.getHeight() * 0.80));
+        image.scale(w, h);
+        setImage(image);
+    }
     /**
      * Act - do whatever the Floor wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.

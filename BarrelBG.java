@@ -8,9 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class BarrelBG extends Actor
 {
-    public BarrelBG(){
+    public BarrelBG(int w, int h){
         GreenfootImage myImage = getImage();
-        myImage.scale(125,100);
+        myImage.scale(w,h);
     }
     public void act() 
     {

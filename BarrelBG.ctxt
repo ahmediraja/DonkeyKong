@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=BarrelBG
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ BarrelBG\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=
-comment1.target=BarrelBG()
+comment0.text=\n\ Write\ a\ description\ of\ class\ BarrelBG\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=w\ h
+comment1.target=BarrelBG(int,\ int)
 comment2.params=
 comment2.target=void\ act()
 numComments=3
