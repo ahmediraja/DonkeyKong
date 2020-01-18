@@ -16,10 +16,8 @@ public class BackGround1 extends World
      * Constructor for objects of class BackGround1.
      * 
      */
-    long StartTime = System.currentTimeMillis();
     private static final int w = (int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()*0.80);
     private static final int h = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()*0.80);
-    
     public BackGround1()
     {    
         //super(1500, 1000, 1);
@@ -27,9 +25,10 @@ public class BackGround1 extends World
         final int floorHeight = (int)(h*0.05);
         final int floorGap = (int)h/4;
         final int marioHeight = 54;
-        
+
         addObject(new DK(140, 110), 190, 112);
         addObject(new BarrelBG(100, 80), 70, 122);
+        addObject(new FireBarrel(36, 54), 60, h-46);
         //addObject(new DK(), 220, 150);
         //addObject(new Floor(), 125, 219);
         //addObject(new Floor(), 375, 219);
@@ -56,15 +55,8 @@ public class BackGround1 extends World
         //(int)(h*0.375-(floorHeight/2)-marioHeight+1)
         addObject(new Ladder((int)(w*0.04), (int)(floorGap-marioHeight+5)), (int)(w*0.33), (int)(h-(floorGap*3)+((floorGap-marioHeight-floorHeight)/2)));
         addObject(new Ladder((int)(w*0.04), (int)(floorGap-marioHeight+5)), (int)(w*0.66), (int)(h-(floorGap*2)+((floorGap-marioHeight-floorHeight)/2)));
-        
+
         addObject(new Mario(36, 54), 125, h-46);
-        
-        addObject(new FireBarrel(36, 54), 60, h-46);
-    }
-    public void act(){
-     long EndTime = System.currentTimeMillis();
-     int DurationInMillis = (int)(EndTime - StartTime);
-     int DurationInSecs = DurationInMillis / 1000;   
-     showText("Time: " + DurationInSecs, 50,500);
+
     }
 }
