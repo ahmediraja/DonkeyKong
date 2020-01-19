@@ -1,10 +1,9 @@
+Username	Score
 
-Ahmed Test	23 seconds
-hi		25 seconds
-bye		30 seconds
-dgs		27 seconds
-yo		15 seconds
-hi there	14 seconds
-hi ther	15 seconds
-hi kollllllasdf	15 seconds
-askldjdfnv	12 seconds
+adil mohammad	47 seconds
+usernameTest	25 seconds
+IAlwaysWin	0 seconds
+ljksfhjadrjteb	25 seconds
+this is ahmed	30 seconds
+ahemdjahgfjal	27 seconds
+this is a test 	27 seconds

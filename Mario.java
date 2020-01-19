@@ -25,7 +25,7 @@ public class Mario extends Actor
     boolean hasKey = false;
     long StartTime = System.currentTimeMillis();
     long EndTime;
-    int DurationInMillis, DurationInlvl1, DurationInlvl2;
+    int DurationInMillis,DurationInlvl2;
     public Mario(int w, int h) {
         //w=50, h=75
         marioFacingRight = getImage();
@@ -38,6 +38,7 @@ public class Mario extends Actor
         marioClimbingLadder1.scale(w+10,h);
         marioClimbingLadder2.scale(w+10,h);
     }
+
     public void addedToWorld(World world) {
         if (getWorld() instanceof BackGround1 || getWorld() instanceof BackGround2) {
             for (int i = 0; i < lives; i++) {
@@ -46,6 +47,7 @@ public class Mario extends Actor
             }
         }
     }
+
     public void animation() {
         if(Greenfoot.isKeyDown("left")) {
             running.play();
@@ -63,8 +65,8 @@ public class Mario extends Actor
                 marioFrame = 2;
             }
             else if(marioFrame == 2){
-              setImage(marioRunningRight);
-              marioFrame = 1;
+                setImage(marioRunningRight);
+                marioFrame = 1;
             }
         } else if(isTouching(Ladder.class)){
             setImage(marioClimbingLadder1);
@@ -81,11 +83,19 @@ public class Mario extends Actor
             setImage(marioFacingRight);
         }
     }
+
     public void act() {
         speed += 1;
         setLocation(getX(), getY() + (speed/8));
         //getWorld().showText("Lives: "+ lives +"", 50, 15);
         animationCounter = animationCounter + 1;
+        if (getWorld() instanceof BackGround2){
+            EndTime = System.currentTimeMillis();
+            DurationInMillis = (int)(EndTime - StartTime);
+            DurationInlvl2 = DurationInMillis / 1000;
+            getWorld().showText("Time: " + DurationInlvl2, w/2,20);
+        }
+        int score = BackGround1.DurationInlvl1 + DurationInlvl2;
         if(animationCounter % 10 == 0)
         {
             animation();
@@ -172,7 +182,9 @@ public class Mario extends Actor
             if(username.length()<7){
                 username = username+"\t";
             }
-            int score = DurationInlvl1 + DurationInlvl2;
+            if(username.equals("IAlwaysWin")){//easter egg/cheat code
+                score = 0;
+            }
             try {   
                 FileWriter fileW = new FileWriter(outputFile, true);//creates file writer
                 BufferedWriter buffW = new BufferedWriter(fileW);//creates buffered writer
@@ -190,17 +202,7 @@ public class Mario extends Actor
 
             //Greenfoot.stop();
         }
-        EndTime = System.currentTimeMillis();
-        DurationInMillis = (int)(EndTime - StartTime);
 
-        if (getWorld() instanceof BackGround1){
-            DurationInlvl1 = DurationInMillis / 1000;
-            getWorld().showText("Time: " + DurationInlvl1, w/2,20);
-        }
-        if (getWorld() instanceof BackGround2){
-            DurationInlvl2 = DurationInMillis / 1000;
-            getWorld().showText("Time: " + DurationInlvl2, w/2,20);
-        }
         // MAY USE THIS FOR POWERUPS DOWN THE LINE
         //if(Greenfoot.isKeyDown("l")) {
         //    lives++;
