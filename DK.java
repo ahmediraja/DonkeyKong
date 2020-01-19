@@ -47,7 +47,13 @@ public class DK extends Actor
         }
     }
     void throwBarrel() {
-        getWorld().addObject(new Barrel(35, 35), getX()+(int)(width/2), getY());
+        int barrelSize = 0;
+        if (getWorld() instanceof BackGround1) {
+            barrelSize = 25;
+        } else if (getWorld() instanceof BackGround2) {
+            barrelSize = 35;
+        }
+        getWorld().addObject(new Barrel(barrelSize, barrelSize), getX()+(int)(width/2), getY());
     }
     public void act() 
     {

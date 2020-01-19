@@ -56,7 +56,7 @@ public class Mario extends Actor
     }
     public void act() {
         speed += 1;
-        setLocation( getX(), getY() + speed);
+        setLocation(getX(), getY() + (speed/8));
         //getWorld().showText("Lives: "+ lives +"", 50, 15);
         animationCounter = animationCounter + 1;
         if(animationCounter % 10 == 0)
@@ -89,7 +89,7 @@ public class Mario extends Actor
                     setLocation(getX(), getY() - 1);
                     if(Greenfoot.isKeyDown("up") && !isTouching(Ladder.class))
                     {
-                        speed = - 22;
+                        speed = - 65;
                     }
                 }
             }
@@ -118,12 +118,10 @@ public class Mario extends Actor
         if(isTouching(Ladder.class)) {
             setLocation(getX(), getY() + 1);
             if(Greenfoot.isKeyDown("up")) {
-                speed -= 1;
+                speed -= 15;
             } else if(Greenfoot.isKeyDown("down")) {
-                speed += 1;
+                speed += 15;
             }
-        } else {
-            
         }
         if(isTouching(Key.class)) {
             hasKey = true;

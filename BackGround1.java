@@ -58,6 +58,6 @@ public class BackGround1 extends World
         addObject(new Ladder((int)(w*0.04), (int)(floorGap-marioHeight+5)), (int)(w*0.33), (int)(h-(floorGap*3)+((floorGap-marioHeight-floorHeight)/2)));
         addObject(new Ladder((int)(w*0.04), (int)(floorGap-marioHeight+5)), (int)(w*0.66), (int)(h-(floorGap*2)+((floorGap-marioHeight-floorHeight)/2)));
         
-        addObject(new Mario(36, 54), 125, h-46);
+        addObject(new Mario(24, 36), 125, h-46);
     }
 }
