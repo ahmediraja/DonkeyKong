@@ -19,7 +19,7 @@ public class startScreen extends World
     {    
         // Create a new world with w by h cells with a cell size of 1x1 pixels.
         super(w, h, 1); 
-        //music.play();
+        music.play();
     }
     public void act()
     {

@@ -1,3 +1,5 @@
 Username	Score
 
-AdilMohammad	18 seconds
+adil mohammad	47 seconds
+usernameTest	25 seconds
+IAlwaysWin	0 seconds

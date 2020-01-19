@@ -12,17 +12,20 @@ public class Mario extends Actor
     marioRunningRightHalf = new GreenfootImage("Mario Running Right Half.png"),
     marioRunningRight = new GreenfootImage("Mario Running Right.png"),
     marioRunningLeftHalf = new GreenfootImage("Mario Running Left Half.png"),
-    marioRunningLeft = new GreenfootImage("Mario Running Left.png");
+    marioRunningLeft = new GreenfootImage("Mario Running Left.png"),
+    marioClimbingLadder1 = new GreenfootImage("Mario Climbing 1.png"),
+    marioClimbingLadder2 = new GreenfootImage("Mario Climbing 2.png");
     long lastTime;
-    int lives = 5, animationCounter = 0, marioFrame = 1;
+    int lives = 3, animationCounter = 0, marioFrame = 1;
     Heart[] hearts = new Heart[lives];
-    GreenfootSound win = new GreenfootSound("win.wav");
+    GreenfootSound win = new GreenfootSound("win.wav"),
+    running = new GreenfootSound("walking.wav"),
+    dead = new GreenfootSound("death.wav"),
+    jump = new GreenfootSound("jump.wav");
     boolean hasKey = false;
     long StartTime = System.currentTimeMillis();
     long EndTime;
-    int DurationInMillis;
-    int DurationInlvl1;
-    int DurationInlvl2;
+    int DurationInMillis,DurationInlvl2;
     public Mario(int w, int h) {
         //w=50, h=75
         marioFacingRight = getImage();
@@ -32,6 +35,8 @@ public class Mario extends Actor
         marioRunningLeftHalf.scale(w+10,h);
         marioRunningRight.scale(w+10,h);
         marioRunningLeft.scale(w+10,h);
+        marioClimbingLadder1.scale(w+10,h);
+        marioClimbingLadder2.scale(w+10,h);
     }
 
     public void addedToWorld(World world) {
@@ -45,15 +50,16 @@ public class Mario extends Actor
 
     public void animation() {
         if(Greenfoot.isKeyDown("left")) {
+            running.play();
             if(marioFrame == 1){
                 setImage(marioRunningLeftHalf);
                 marioFrame = 2;
-            }
-            else if(marioFrame == 2){
+            } else if(marioFrame == 2){
                 setImage(marioRunningLeft);
                 marioFrame = 1;
             }  
         } else if(Greenfoot.isKeyDown("right")){
+            running.play();
             if(marioFrame == 1){
                 setImage(marioRunningRightHalf);
                 marioFrame = 2;
@@ -62,6 +68,17 @@ public class Mario extends Actor
                 setImage(marioRunningRight);
                 marioFrame = 1;
             }
+        } else if(isTouching(Ladder.class)){
+            setImage(marioClimbingLadder1);
+            if (Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) {
+                if(marioFrame == 1) {
+                    setImage(marioClimbingLadder1);
+                    marioFrame = 2;
+                } else if(marioFrame == 2) {
+                    setImage(marioClimbingLadder2);
+                    marioFrame = 1;
+                }
+            }
         } else {
             setImage(marioFacingRight);
         }
@@ -69,9 +86,16 @@ public class Mario extends Actor
 
     public void act() {
         speed += 1;
-        setLocation( getX(), getY() + speed);
+        setLocation(getX(), getY() + (speed/8));
         //getWorld().showText("Lives: "+ lives +"", 50, 15);
         animationCounter = animationCounter + 1;
+        if (getWorld() instanceof BackGround2){
+            EndTime = System.currentTimeMillis();
+            DurationInMillis = (int)(EndTime - StartTime);
+            DurationInlvl2 = DurationInMillis / 1000;
+            getWorld().showText("Time: " + DurationInlvl2, w/2,20);
+        }
+        int score = BackGround1.DurationInlvl1 + DurationInlvl2;
         if(animationCounter % 10 == 0)
         {
             animation();
@@ -82,8 +106,11 @@ public class Mario extends Actor
             getWorld().removeObject(hearts[lives-1]);
             lives--;
         }
-        if(lives == 0)
-        {
+        if(lives == 0) {
+            if(running.isPlaying()){
+                running.stop();
+            }
+            dead.play();
             getWorld().showText("GAME OVER", 750, 600);
             Greenfoot.stop();
         }
@@ -102,7 +129,11 @@ public class Mario extends Actor
                     setLocation(getX(), getY() - 1);
                     if(Greenfoot.isKeyDown("up") && !isTouching(Ladder.class))
                     {
-                        speed = - 22;
+                        speed = - 65;
+                        if(running.isPlaying()) {
+                            running.stop();
+                        }
+                        jump.play();
                     }
                 }
             }
@@ -131,12 +162,10 @@ public class Mario extends Actor
         if(isTouching(Ladder.class)) {
             setLocation(getX(), getY() + 1);
             if(Greenfoot.isKeyDown("up")) {
-                speed -= 1;
+                speed -= 15;
             } else if(Greenfoot.isKeyDown("down")) {
-                speed += 1;
+                speed += 15;
             }
-        } else {
-
         }
         if(isTouching(Key.class)) {
             hasKey = true;
@@ -153,8 +182,10 @@ public class Mario extends Actor
             if(username.length()<7){
                 username = username+"\t";
             }
-            int score = DurationInlvl1 + DurationInlvl2;
-            try {	
+            if(username.equals("IAlwaysWin")){//easter egg/cheat code
+                score = 0;
+            }
+            try {   
                 FileWriter fileW = new FileWriter(outputFile, true);//creates file writer
                 BufferedWriter buffW = new BufferedWriter(fileW);//creates buffered writer
 
@@ -171,17 +202,7 @@ public class Mario extends Actor
 
             //Greenfoot.stop();
         }
-        EndTime = System.currentTimeMillis();
-        DurationInMillis = (int)(EndTime - StartTime);
 
-        if (getWorld() instanceof BackGround1){
-            DurationInlvl1 = DurationInMillis / 1000;
-            getWorld().showText("Time: " + DurationInlvl1, w/2,20);
-        }
-        if (getWorld() instanceof BackGround2){
-            DurationInlvl2 = DurationInMillis / 1000;
-            getWorld().showText("Time: " + DurationInlvl2, w/2,20);
-        }
         // MAY USE THIS FOR POWERUPS DOWN THE LINE
         //if(Greenfoot.isKeyDown("l")) {
         //    lives++;
