@@ -20,8 +20,8 @@ public class BackGround1 extends World
     private static final int h = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()*0.80);
     long StartTime = System.currentTimeMillis();
     long EndTime;
-    int DurationInMillis;
-    public static int DurationInlvl1;
+    int DurationInMillis;//time in millseconds
+    public static int DurationInlvl1;//time taken to complete level 1
     public BackGround1()
     {    
         //super(1500, 1000, 1);
@@ -30,40 +30,20 @@ public class BackGround1 extends World
         final int floorGap = (int)h/4;
         final int marioHeight = 54;
 
-        addObject(new DK(140, 110), 190, 112);
-        addObject(new BarrelBG(100, 80), 70, 122);
-        addObject(new FireBarrel(36, 54), 60, h-46);
-        //addObject(new DK(), 220, 150);
-        //addObject(new Floor(), 125, 219);
-        //addObject(new Floor(), 375, 219);
-        //addObject(new Floor(), 625, 219);
-        //addObject(new Floor(), 875, 219);
-        //addObject(new Floor2(), 625, 500);
-        //addObject(new Floor2(), 875, 500);
-        //addObject(new Floor2(), 1125, 500);
-        //addObject(new Floor2(), 1375, 500);
-        //addObject(new Floor(), 125, 781);
-        //addObject(new Floor(), 375, 781);
-        //addObject(new Floor(), 625, 781);
-        //addObject(new Floor(), 875, 781);
-        //addObject(new Floor2(), 125, 1000);
-        //addObject(new Floor2(), 375, 1000);
-        //addObject(new Floor2(), 625, 1000);
-        //addObject(new Floor2(), 875, 1000);
-        //addObject(new Floor2(), 1125, 1000);
-        //addObject(new Floor2(), 1375, 1000);
-        addObject(new Floor((int)(w*0.75), floorHeight), (int)((w*0.75)*0.5), h-(floorGap*3));
+        addObject(new DK(140, 110), 190, 112);//add DK
+        addObject(new BarrelBG(100, 80), 70, 122);//add background barrel
+        addObject(new FireBarrel(36, 54), 60, h-46);//add fire barrel
+        addObject(new Floor((int)(w*0.75), floorHeight), (int)((w*0.75)*0.5), h-(floorGap*3));//add floors
         addObject(new Floor2((int)(w*0.75), floorHeight), w-(int)((w*0.75)*0.5), h-(floorGap*2));
         addObject(new Floor((int)(w*0.75), floorHeight), (int)((w*0.75)*0.5), h-floorGap);
         addObject(new Floor2(w, floorHeight), (int)(w/2), h);
-        //(int)(h*0.375-(floorHeight/2)-marioHeight+1)
-        addObject(new Ladder((int)(w*0.04), (int)(floorGap-marioHeight+5)), (int)(w*0.33), (int)(h-(floorGap*3)+((floorGap-marioHeight-floorHeight)/2)));
+        addObject(new Ladder((int)(w*0.04), (int)(floorGap-marioHeight+5)), (int)(w*0.33), (int)(h-(floorGap*3)+((floorGap-marioHeight-floorHeight)/2)));//add ladder
         addObject(new Ladder((int)(w*0.04), (int)(floorGap-marioHeight+5)), (int)(w*0.66), (int)(h-(floorGap*2)+((floorGap-marioHeight-floorHeight)/2)));
 
-        addObject(new Mario(24, 36), 125, h-46);
+        addObject(new Mario(24, 36), 125, h-46);//add mario
     }
 
-    public void act(){
+    public void act(){//timer 
         EndTime = System.currentTimeMillis();
         DurationInMillis = (int)(EndTime - StartTime);
         DurationInlvl1 = DurationInMillis / 1000;
