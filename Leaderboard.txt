@@ -5,3 +5,6 @@ bye		30 seconds
 dgs		27 seconds
 yo		15 seconds
 hi there	14 seconds
+hi ther	15 seconds
+hi kollllllasdf	15 seconds
+askldjdfnv	12 seconds
