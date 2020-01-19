@@ -17,6 +17,9 @@ public class Mario extends Actor
     int lives = 3, animationCounter = 0, marioFrame = 1;
     Heart[] hearts = new Heart[lives];
     GreenfootSound win = new GreenfootSound("win.wav");
+    GreenfootSound running = new GreenfootSound("walking.wav");
+    GreenfootSound dead = new GreenfootSound("death.wav");
+    GreenfootSound jump = new GreenfootSound("jump.wav");
     boolean hasKey = false;
     long StartTime = System.currentTimeMillis();
     long EndTime;
@@ -41,15 +44,16 @@ public class Mario extends Actor
     }
     public void animation() {
         if(Greenfoot.isKeyDown("left")) {
-          if(marioFrame == 1){
-            setImage(marioRunningLeftHalf);
-            marioFrame = 2;
-          }
-          else if(marioFrame == 2){
-            setImage(marioRunningLeft);
-            marioFrame = 1;
-          }  
+            running.play();
+            if(marioFrame == 1){
+                setImage(marioRunningLeftHalf);
+                marioFrame = 2;
+            } else if(marioFrame == 2){
+                setImage(marioRunningLeft);
+                marioFrame = 1;
+            }  
         } else if(Greenfoot.isKeyDown("right")){
+            running.play();
             if(marioFrame == 1){
                 setImage(marioRunningRightHalf);
                 marioFrame = 2;
@@ -77,8 +81,11 @@ public class Mario extends Actor
             getWorld().removeObject(hearts[lives-1]);
             lives--;
         }
-        if(lives == 0)
-        {
+        if(lives == 0) {
+            if(running.isPlaying()){
+                running.stop();
+            }
+            dead.play();
             getWorld().showText("GAME OVER", 750, 600);
             Greenfoot.stop();
         }
@@ -98,6 +105,10 @@ public class Mario extends Actor
                     if(Greenfoot.isKeyDown("up") && !isTouching(Ladder.class))
                     {
                         speed = - 65;
+                        if(running.isPlaying()) {
+                            running.stop();
+                        }
+                        jump.play();
                     }
                 }
             }

@@ -2,3 +2,5 @@
 Ahmed Test	23 seconds
 hi		25 seconds
 bye		30 seconds
+dgs		27 seconds
+yo		15 seconds
