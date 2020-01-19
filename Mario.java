@@ -12,14 +12,16 @@ public class Mario extends Actor
     marioRunningRightHalf = new GreenfootImage("Mario Running Right Half.png"),
     marioRunningRight = new GreenfootImage("Mario Running Right.png"),
     marioRunningLeftHalf = new GreenfootImage("Mario Running Left Half.png"),
-    marioRunningLeft = new GreenfootImage("Mario Running Left.png");
+    marioRunningLeft = new GreenfootImage("Mario Running Left.png"),
+    marioClimbingLadder1 = new GreenfootImage("Mario Climbing 1.png"),
+    marioClimbingLadder2 = new GreenfootImage("Mario Climbing 2.png");
     long lastTime;
     int lives = 3, animationCounter = 0, marioFrame = 1;
     Heart[] hearts = new Heart[lives];
-    GreenfootSound win = new GreenfootSound("win.wav");
-    GreenfootSound running = new GreenfootSound("walking.wav");
-    GreenfootSound dead = new GreenfootSound("death.wav");
-    GreenfootSound jump = new GreenfootSound("jump.wav");
+    GreenfootSound win = new GreenfootSound("win.wav"),
+    running = new GreenfootSound("walking.wav"),
+    dead = new GreenfootSound("death.wav"),
+    jump = new GreenfootSound("jump.wav");
     boolean hasKey = false;
     long StartTime = System.currentTimeMillis();
     long EndTime;
@@ -33,6 +35,8 @@ public class Mario extends Actor
         marioRunningLeftHalf.scale(w+10,h);
         marioRunningRight.scale(w+10,h);
         marioRunningLeft.scale(w+10,h);
+        marioClimbingLadder1.scale(w+10,h);
+        marioClimbingLadder2.scale(w+10,h);
     }
     public void addedToWorld(World world) {
         if (getWorld() instanceof BackGround1 || getWorld() instanceof BackGround2) {
@@ -61,6 +65,17 @@ public class Mario extends Actor
             else if(marioFrame == 2){
               setImage(marioRunningRight);
               marioFrame = 1;
+            }
+        } else if(isTouching(Ladder.class)){
+            setImage(marioClimbingLadder1);
+            if (Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) {
+                if(marioFrame == 1) {
+                    setImage(marioClimbingLadder1);
+                    marioFrame = 2;
+                } else if(marioFrame == 2) {
+                    setImage(marioClimbingLadder2);
+                    marioFrame = 1;
+                }
             }
         } else {
             setImage(marioFacingRight);
@@ -158,7 +173,7 @@ public class Mario extends Actor
                 username = username+"\t";
             }
             int score = DurationInlvl1 + DurationInlvl2;
-            try {	
+            try {   
                 FileWriter fileW = new FileWriter(outputFile, true);//creates file writer
                 BufferedWriter buffW = new BufferedWriter(fileW);//creates buffered writer
 
