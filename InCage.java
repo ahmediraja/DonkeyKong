@@ -13,7 +13,7 @@ public class InCage extends Princess
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public InCage(int w, int h) {
-        super(w*3, h*3);
+        super(w, h);
     }
     public void act() 
     {

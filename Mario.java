@@ -14,7 +14,7 @@ public class Mario extends Actor
     marioRunningLeftHalf = new GreenfootImage("Mario Running Left Half.png"),
     marioRunningLeft = new GreenfootImage("Mario Running Left.png");
     long lastTime;
-    int lives = 5, animationCounter = 0, marioFrame = 1;
+    int lives = 3, animationCounter = 0, marioFrame = 1;
     Heart[] hearts = new Heart[lives];
     GreenfootSound win = new GreenfootSound("win.wav");
     boolean hasKey = false;
