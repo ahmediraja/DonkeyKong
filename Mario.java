@@ -1,7 +1,12 @@
 import greenfoot.*;
+import java.io.*;
+import javax.swing.JOptionPane;
+import java.awt.Desktop;
+import java.awt.Toolkit;
 public class Mario extends Actor
 {
     int speed;
+    private static final int w = (int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()*0.80);
     GreenfootImage marioFacingRight = new GreenfootImage("Mario Facing Right.png"),
     marioFacingLeft = new GreenfootImage("Mario Facing Left.png"),
     marioRunningRightHalf = new GreenfootImage("Mario Running Right Half.png"),
@@ -13,6 +18,9 @@ public class Mario extends Actor
     Heart[] hearts = new Heart[lives];
     GreenfootSound win = new GreenfootSound("win.wav");
     boolean hasKey = false;
+    long StartTime = System.currentTimeMillis();
+    long EndTime;
+    int DurationInMillis, DurationInlvl1, DurationInlvl2;
     public Mario(int w, int h) {
         //w=50, h=75
         marioFacingRight = getImage();
@@ -130,7 +138,42 @@ public class Mario extends Actor
         if(isTouching(InCage.class) && hasKey == true) {
             win.play();
             Greenfoot.setWorld(new Finish());
-            Greenfoot.stop();
+            String username = JOptionPane.showInputDialog("Enter a Username");
+            File outputFile = new File("Leaderboard.txt");
+            if(username.length()>15){
+                username = username.substring(0, 15);
+            }
+            if(username.length()<7){
+                username = username+"\t";
+            }
+            int score = DurationInlvl1 + DurationInlvl2;
+            try {	
+                FileWriter fileW = new FileWriter(outputFile, true);//creates file writer
+                BufferedWriter buffW = new BufferedWriter(fileW);//creates buffered writer
+
+                buffW.write("\n"+username+"\t"+score+" seconds");//buffered writer writes the parsed info into fileOutput
+                buffW.close();//closing the buffered writer
+                Desktop desktop = Desktop.getDesktop();
+
+                if(outputFile.exists()) desktop.open(outputFile);
+            }
+            catch(IOException e) {
+                e.printStackTrace();
+                System.out.println("An Error Occured");
+            }
+
+            //Greenfoot.stop();
+        }
+        EndTime = System.currentTimeMillis();
+        DurationInMillis = (int)(EndTime - StartTime);
+
+        if (getWorld() instanceof BackGround1){
+            DurationInlvl1 = DurationInMillis / 1000;
+            getWorld().showText("Time: " + DurationInlvl1, w/2,20);
+        }
+        if (getWorld() instanceof BackGround2){
+            DurationInlvl2 = DurationInMillis / 1000;
+            getWorld().showText("Time: " + DurationInlvl2, w/2,20);
         }
         // MAY USE THIS FOR POWERUPS DOWN THE LINE
         //if(Greenfoot.isKeyDown("l")) {
