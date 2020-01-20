@@ -5,14 +5,14 @@ public class DK extends Actor
     int animationCounter = 0;
     int frame = 1;
     int width; //used for adjusting barrel init location
-    GreenfootImage kongDead = new GreenfootImage("Kong Dead.png");
+    GreenfootImage kongDead = new GreenfootImage("Kong Dead.png");//for animation
     GreenfootImage kongGrabing = new GreenfootImage("Kong Grabing.png");
     GreenfootImage kongRoar1 = new GreenfootImage("Kong Roar 1.png");
     GreenfootImage kongRoar2 = new GreenfootImage("Kong Roar 2.png");
     GreenfootImage kongStandingStill = new GreenfootImage("Kong Standing Still.png");
     GreenfootImage kongStanding = new GreenfootImage("Kong Standing.png");
     GreenfootImage kongThrowing = new GreenfootImage("Kong Throwing.png");
-    public DK(int w, int h){
+    public DK(int w, int h){//DK scaling
         //w=140, h=110
         width = w;
         kongRoar1 = getImage();
@@ -63,7 +63,7 @@ public class DK extends Actor
         {
             animation();
         }
-        if(isTouching(Mario.class) && getWorld() instanceof BackGround1)
+        if(isTouching(Mario.class) && getWorld() instanceof BackGround1)//mario is touching DK then start the next level
         {
             Greenfoot.setWorld(new BackGround2());
         }
